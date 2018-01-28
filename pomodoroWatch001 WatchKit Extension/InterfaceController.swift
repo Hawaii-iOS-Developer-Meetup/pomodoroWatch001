@@ -15,14 +15,17 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var button: WKInterfaceButton!
     @IBOutlet var imageView: WKInterfaceImage!
     
+    var image = UIImage()
     var isWorking = false
     
     @IBAction func buttonPressed() {
         if isWorking {
             isWorking = false
             button.setTitle("Start")
+            setImageViewWithImage(named: "blackTomato")
         } else {
             isWorking = true
+            setImageViewWithImage(named: "redTomato")
             button.setTitle("Stop")
         }
     }
@@ -32,8 +35,16 @@ class InterfaceController: WKInterfaceController {
         
         // Configure interface objects here.
         
-        let image = UIImage.init(named: "blackTomato")
-        imageView.setImage(image)
+        setImageViewWithImage(named: "blackTomato")
+    }
+    
+    func setImageViewWithImage(named inputName: String) {
+        let image = UIImage.init(named: inputName)
+        if let image = image {
+            imageView.setImage(image)
+        } else {
+            print("could not set image")
+        }
     }
     
     override func willActivate() {
