@@ -17,19 +17,81 @@ class InterfaceController: WKInterfaceController {
     
     var image = UIImage()
     var isWorking = false
+    var RESTING_MINUTES = 5
+    var WORKING_MINUTES = 25
+    var SECONDS_IN_MINUTES = 60
+    var timer: Timer = Timer()
+    var secondsLeftInCurrentCount = 0
     
     @IBAction func buttonPressed() {
         if isWorking {
-            label001.setText("pressed ")
-            isWorking = false
+            timer.invalidate()
             button.setTitle("Start")
+            setLabel(withString: "press start")
             setImageViewWithImage(named: "blackTomato")
+            isWorking = false
         } else {
-            label001.setText("unpressed ")
-
-            isWorking = true
-            setImageViewWithImage(named: "redTomato")
+            timer.invalidate()
             button.setTitle("Stop")
+            setLabel(withString: "working...")
+            setImageViewWithImage(named: "redTomato")
+            let inputTime: Int = WORKING_MINUTES * SECONDS_IN_MINUTES
+            startTimer(withSeconds: inputTime)
+            isWorking = true
+        }
+    }
+    
+    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
+    func setLabel(withString inputString: String) {
+        label001.setText(inputString)
+    }
+    
+    func startTimer(withSeconds inputSeconds: Int) {
+        secondsLeftInCurrentCount = inputSeconds
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+    }
+    
+    @objc func update() {
+        
+        if secondsLeftInCurrentCount >= 1 {
+            secondsLeftInCurrentCount = secondsLeftInCurrentCount - 1
+            let hoursMinutesSeconds: (Int,Int,Int) = secondsToHoursMinutesSeconds(seconds: secondsLeftInCurrentCount)
+            let hours = String(format: "%02d", hoursMinutesSeconds.0)
+            let minutes = String(format: "%02d", hoursMinutesSeconds.1)
+            let seconds = String(format: "%02d", hoursMinutesSeconds.2)
+            setLabel(withString: "\(hours):\(minutes):\(seconds)")
+        } else {
+            
+            //TODO: Make the watch haptic feedback at you
+            // One tap to start working
+            // Two taps when you've finished
+            // One soft tap when you stop
+            
+            if isWorking {
+                isWorking = false
+                label001.setText("resting...")
+                timer.invalidate()
+                startTimer(withSeconds: RESTING_MINUTES * SECONDS_IN_MINUTES)
+                setImageViewWithImage(named: "greenTomato")
+            } else {
+                isWorking = true
+                label001.setText("working...")
+                timer.invalidate()
+                startTimer(withSeconds: WORKING_MINUTES * SECONDS_IN_MINUTES)
+                setImageViewWithImage(named: "redTomato")
+            }
+        }
+    }
+    
+    func setImageViewWithImage(named inputName: String) {
+        let image = UIImage.init(named: inputName)
+        if let image = image {
+            imageView.setImage(image)
+        } else {
+            print("could not set image")
         }
     }
     
@@ -41,14 +103,7 @@ class InterfaceController: WKInterfaceController {
         setImageViewWithImage(named: "blackTomato")
     }
     
-    func setImageViewWithImage(named inputName: String) {
-        let image = UIImage.init(named: inputName)
-        if let image = image {
-            imageView.setImage(image)
-        } else {
-            print("could not set image")
-        }
-    }
+
     
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
