@@ -9,11 +9,11 @@
 import WatchKit
 import Foundation
 
-
 class InterfaceController: WKInterfaceController {
     
     @IBOutlet var timeLabel: WKInterfaceTimer!
     @IBOutlet var button: WKInterfaceButton!
+    @IBOutlet var imageView: WKInterfaceImage!
     
     var isWorking = false
     
@@ -31,6 +31,9 @@ class InterfaceController: WKInterfaceController {
         super.awake(withContext: context)
         
         // Configure interface objects here.
+        
+        let image = UIImage.init(named: "blackTomato")
+        imageView.setImage(image)
     }
     
     override func willActivate() {

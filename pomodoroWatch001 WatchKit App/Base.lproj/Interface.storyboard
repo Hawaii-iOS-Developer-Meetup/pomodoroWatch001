@@ -14,7 +14,7 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="pomodoroWatch001_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <imageView alignment="left" id="nK9-wt-J6W"/>
+                        <imageView alignment="left" image="blackTomato" id="nK9-wt-J6W"/>
                         <timer alignment="left" id="cii-7G-geP"/>
                         <button width="1" alignment="left" title="Start" id="UGj-cU-D0e">
                             <connections>
@@ -24,6 +24,7 @@
                     </items>
                     <connections>
                         <outlet property="button" destination="UGj-cU-D0e" id="7Hs-Wc-12L"/>
+                        <outlet property="imageView" destination="nK9-wt-J6W" id="WLK-pl-ibZ"/>
                         <outlet property="timeLabel" destination="cii-7G-geP" id="kIN-om-OXs"/>
                     </connections>
                 </controller>
