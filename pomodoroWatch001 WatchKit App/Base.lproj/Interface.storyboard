@@ -15,7 +15,7 @@
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="pomodoroWatch001_WatchKit_App" customModuleProvider="target">
                     <items>
                         <imageView width="136" height="86" alignment="left" contentMode="scaleAspectFill" id="nK9-wt-J6W"/>
-                        <timer alignment="left" id="cii-7G-geP"/>
+                        <label alignment="left" text="press start" id="egm-dp-F2A"/>
                         <button width="1" alignment="left" title="Start" id="UGj-cU-D0e">
                             <connections>
                                 <action selector="buttonPressed" destination="AgC-eL-Hgc" id="oQW-U0-Prm"/>
@@ -25,7 +25,7 @@
                     <connections>
                         <outlet property="button" destination="UGj-cU-D0e" id="7Hs-Wc-12L"/>
                         <outlet property="imageView" destination="nK9-wt-J6W" id="WLK-pl-ibZ"/>
-                        <outlet property="timeLabel" destination="cii-7G-geP" id="kIN-om-OXs"/>
+                        <outlet property="label001" destination="egm-dp-F2A" id="uWG-mZ-0ce"/>
                     </connections>
                 </controller>
             </objects>

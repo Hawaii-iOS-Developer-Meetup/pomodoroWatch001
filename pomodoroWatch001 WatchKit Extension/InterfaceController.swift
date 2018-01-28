@@ -11,19 +11,22 @@ import Foundation
 
 class InterfaceController: WKInterfaceController {
     
-    @IBOutlet var timeLabel: WKInterfaceTimer!
     @IBOutlet var button: WKInterfaceButton!
     @IBOutlet var imageView: WKInterfaceImage!
+    @IBOutlet var label001: WKInterfaceLabel!
     
     var image = UIImage()
     var isWorking = false
     
     @IBAction func buttonPressed() {
         if isWorking {
+            label001.setText("pressed ")
             isWorking = false
             button.setTitle("Start")
             setImageViewWithImage(named: "blackTomato")
         } else {
+            label001.setText("unpressed ")
+
             isWorking = true
             setImageViewWithImage(named: "redTomato")
             button.setTitle("Stop")
