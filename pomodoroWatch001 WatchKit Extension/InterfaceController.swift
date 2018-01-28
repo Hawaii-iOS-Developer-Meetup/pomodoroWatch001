@@ -11,7 +11,22 @@ import Foundation
 
 
 class InterfaceController: WKInterfaceController {
-
+    
+    @IBOutlet var timeLabel: WKInterfaceTimer!
+    @IBOutlet var button: WKInterfaceButton!
+    
+    var isWorking = false
+    
+    @IBAction func buttonPressed() {
+        if isWorking {
+            isWorking = false
+            button.setTitle("Start")
+        } else {
+            isWorking = true
+            button.setTitle("Stop")
+        }
+    }
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
